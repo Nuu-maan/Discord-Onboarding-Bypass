@@ -1,4 +1,6 @@
-# onboarding_bypass (fixed)
+##  USED AI FOR  VARIABLE NAMES DONT COMPLAIN 
+
+
 import os
 import json
 import time
@@ -83,7 +85,7 @@ class ConfigurationManager:
 
 
 class DiscordSessionManager:
-    """Manages TLS sessions with modern fingerprints"""
+    """Manages TLS sessions with fingerprints"""
     def __init__(self, config: dict, proxies: List[str]):
         self.config = config
         self.proxies = proxies
@@ -131,7 +133,7 @@ class DiscordSessionManager:
         }
     
     def _super_properties(self) -> str:
-        """Generate modern super properties"""
+        """Generate super properties"""
         return "eyJvcyI6IldpbmRvd3MiLCJicm93c2VyIjoiQ2hyb21lIiwiZGV2aWNlIjoiIiwic3lzdGVtX2xvY2FsZSI6ImVuLVVTIiwiYnJvd3Nlcl91c2VyX2FnZW50IjoiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEzMy4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiYnJvd3Nlcl92ZXJzaW9uIjoiMTMzLjAuMC4wIiwib3NfdmVyc2lvbiI6IjEwIiwicmVmZXJyZXIiOiIiLCJyZWZlcnJpbmdfZG9tYWluIjoiIiwicmVmZXJyZXJfY3VycmVudCI6IiIsInJlZmVycmluZ19kb21haW5fY3VycmVudCI6IiIsInJlbGVhc2VfY2hhbm5lbCI6InN0YWJsZSIsImNsaWVudF9idWlsZF9udW1iZXIiOjM0NTY3OCwiY2xpZW50X2V2ZW50X3NvdXJjZSI6bnVsbH0="
 
 
@@ -205,7 +207,7 @@ class OnboardingHandler:
         now = int(datetime.now().timestamp())
         prompts = data.get("prompts", [])
         
-        # Extract valid prompt and option IDs
+        
         prompts_seen = {prompt["id"]: now for prompt in prompts}
         responses_seen = {
             option["id"]: now
