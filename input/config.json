@@ -1,0 +1,8 @@
+{
+    "Threads": 5,                 
+    "Proxyless": false,            
+    "Debug": true,                  
+    "Timeout": 10,                 
+    "retry_attempts": 3,                   
+    "UserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+}
