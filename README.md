@@ -57,5 +57,18 @@ input/
 ```
 
 
+## Contributing
+
+>We welcome contributions! To contribute:
+
+Fork the repository.
+Create a new branch (git checkout -b feature-branch).
+Commit your changes (git commit -m 'Add new feature').
+Push to the branch (git push origin feature-branch).
+Open a pull request.
+
+License:
+This project is licensed under MIT [License](LICENSE).
+
 > Disclaimer:This tool is for educational purposes only. Use responsibly and in compliance with Discord's Terms of Service.
 
