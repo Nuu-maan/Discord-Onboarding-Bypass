@@ -34,14 +34,12 @@ BANNER = f"""
 """
 
 class ConfigurationManager:
-    """Handles configuration loading with enhanced parsing"""
     def __init__(self):
         self.config = {}
         self.proxies = []
         self.tokens = []
         
     def load_config(self) -> None:
-        """Load and validate configuration from files"""
         try:
             with open("input/config.json") as f:
                 self.config = json.load(f)
@@ -59,7 +57,6 @@ class ConfigurationManager:
             raise
 
     def _parse_proxies(self, path: str) -> List[str]:
-        """Parse proxies with various formats"""
         proxies = []
         if os.path.exists(path):
             with open(path) as f:
@@ -72,7 +69,6 @@ class ConfigurationManager:
         return proxies
 
     def _parse_tokens(self, path: str) -> List[str]:
-        """Extract tokens from multiple formats"""
         tokens = []
         if os.path.exists(path):
             with open(path) as f:
@@ -85,14 +81,12 @@ class ConfigurationManager:
 
 
 class DiscordSessionManager:
-    """Manages TLS sessions with fingerprints"""
     def __init__(self, config: dict, proxies: List[str]):
         self.config = config
         self.proxies = proxies
         self.client_identifier = "chrome_133"
         
     def create_session(self) -> tls_client.Session:
-        """Create new session with randomized parameters"""
         session = tls_client.Session(
             client_identifier=self.client_identifier,
             random_tls_extension_order=True
@@ -115,7 +109,6 @@ class DiscordSessionManager:
         NovaLogger.trace("Proxy applied", proxy=proxy)
 
     def _modern_headers(self) -> dict:
-        """Generate headers with 2025 Chrome 133 fingerprint"""
         return {
             'accept': '*/*',
             'accept-language': 'en-US,en;q=0.9',
@@ -133,18 +126,15 @@ class DiscordSessionManager:
         }
     
     def _super_properties(self) -> str:
-        """Generate super properties"""
         return "eyJvcyI6IldpbmRvd3MiLCJicm93c2VyIjoiQ2hyb21lIiwiZGV2aWNlIjoiIiwic3lzdGVtX2xvY2FsZSI6ImVuLVVTIiwiYnJvd3Nlcl91c2VyX2FnZW50IjoiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEzMy4wLjAuMCBTYWZhcmkvNTM3LjM2IiwiYnJvd3Nlcl92ZXJzaW9uIjoiMTMzLjAuMC4wIiwib3NfdmVyc2lvbiI6IjEwIiwicmVmZXJyZXIiOiIiLCJyZWZlcnJpbmdfZG9tYWluIjoiIiwicmVmZXJyZXJfY3VycmVudCI6IiIsInJlZmVycmluZ19kb21haW5fY3VycmVudCI6IiIsInJlbGVhc2VfY2hhbm5lbCI6InN0YWJsZSIsImNsaWVudF9idWlsZF9udW1iZXIiOjM0NTY3OCwiY2xpZW50X2V2ZW50X3NvdXJjZSI6bnVsbH0="
 
 
 class OnboardingHandler:
-    """Handles Discord guild onboarding process"""
     def __init__(self, config: dict, proxies: List[str]):
         self.config = config
         self.session_manager = DiscordSessionManager(config, proxies)
         
     def execute(self, tokens: List[str], guild_id: str) -> None:
-        """Execute onboarding bypass with thread pool"""
         NovaLogger.note("Starting mass onboarding", 
                       guild_id=guild_id, 
                       total_tokens=len(tokens))
@@ -160,7 +150,6 @@ class OnboardingHandler:
                     NovaLogger.fail("Thread error", error=str(e))
 
     def process_token(self, token: str, guild_id: str) -> None:
-        """Process individual token through onboarding flow"""
         try:
             session = self.session_manager.create_session()
             session.headers["authorization"] = token
@@ -176,7 +165,6 @@ class OnboardingHandler:
             NovaLogger.fail("Processing failed", token=token[-15:], error=str(e))
 
     def _get_onboarding_data(self, session: tls_client.Session, guild_id: str) -> Optional[Dict[str, Any]]:
-        """Fetch and parse onboarding data"""
         response = session.get(
             f"https://discord.com/api/v9/guilds/{guild_id}/onboarding"
         )
@@ -191,7 +179,6 @@ class OnboardingHandler:
         return data
 
     def _complete_onboarding(self, session: tls_client.Session, guild_id: str, data: Dict[str, Any]) -> None:
-        """Complete full onboarding process"""
         payload = self._prepare_payload(data)
         
         response = session.post(
@@ -203,7 +190,6 @@ class OnboardingHandler:
             raise Exception(f"Onboarding failed ({response.status_code}): {response.text}")
 
     def _prepare_payload(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate valid onboarding payload"""
         now = int(datetime.now().timestamp())
         prompts = data.get("prompts", [])
         
